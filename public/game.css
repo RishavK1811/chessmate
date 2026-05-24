@@ -1,0 +1,106 @@
+/* === GAME PAGE LAYOUT === */
+.game-page{overflow:hidden;height:100vh;display:flex;flex-direction:column}
+.game-page .navbar{flex-shrink:0;padding:.8rem 1.5rem}
+.game-status{padding:.4rem 1rem;border-radius:50px;background:var(--surface);border:1px solid var(--border);font-size:.8rem;color:var(--accent);font-weight:600}
+.game-container{flex:1;display:flex;gap:1rem;padding:0 1.5rem 1rem;max-width:1400px;margin:0 auto;width:100%;min-height:0}
+
+/* === LEFT SIDEBAR (board area) === */
+.left-sidebar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;min-height:0}
+
+/* === PLAYER CARDS === */
+.player-card{display:flex;align-items:center;gap:.8rem;padding:.6rem 1rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);width:100%;max-width:480px}
+.player-avatar{font-size:1.6rem}
+.player-info{display:flex;flex-direction:column;flex:1}
+.player-name{font-weight:600;font-size:.9rem}
+.player-color{font-size:.75rem;color:var(--text3)}
+.connection-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.connection-dot.connected{background:var(--success);box-shadow:0 0 8px var(--success)}
+.connection-dot.disconnected{background:var(--danger);box-shadow:0 0 8px var(--danger)}
+
+/* === CHESS BOARD === */
+.board-wrapper{position:relative;max-width:480px;width:100%;aspect-ratio:1}
+.chess-board{display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(8,1fr);width:100%;height:100%;border-radius:var(--radius);overflow:hidden;border:2px solid var(--border2);box-shadow:0 10px 40px rgba(0,0,0,0.4)}
+.board-labels-top,.board-labels-bottom{display:flex;justify-content:space-around;padding:2px 0;max-width:480px;width:100%}
+.board-labels-top span,.board-labels-bottom span{font-size:.65rem;color:var(--text3);width:12.5%;text-align:center}
+.board-labels-left,.board-labels-right{position:absolute;top:0;bottom:0;display:flex;flex-direction:column;justify-content:space-around}
+.board-labels-left{left:-16px}
+.board-labels-right{right:-16px}
+.board-labels-left span,.board-labels-right span{font-size:.65rem;color:var(--text3)}
+
+.square{position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s;user-select:none;-webkit-user-select:none}
+.square.light{background:#e8dcc8}
+.square.dark{background:#b58863}
+.square.selected{background:#f6f669!important}
+.square.legal-move::after{content:'';position:absolute;width:30%;height:30%;border-radius:50%;background:rgba(0,0,0,0.2)}
+.square.legal-capture{background:rgba(246,246,105,0.5)!important}
+.square.last-move{background:rgba(246,246,105,0.4)!important}
+.square.check{background:radial-gradient(circle,#ff0000 0%,#cc0000 25%,rgba(204,0,0,0) 89%)!important}
+.square .chess-piece{font-size:clamp(1.5rem,5vw,2.8rem);line-height:1;filter:drop-shadow(1px 1px 1px rgba(0,0,0,0.3));pointer-events:none;z-index:1}
+.square .chess-piece.white-piece{color:#fff;text-shadow:0 0 2px rgba(0,0,0,0.8),1px 1px 2px rgba(0,0,0,0.5)}
+.square .chess-piece.black-piece{color:#1a1a2e;text-shadow:0 0 1px rgba(255,255,255,0.3)}
+
+/* === CAPTURED PIECES === */
+.captured-pieces{display:flex;flex-wrap:wrap;gap:2px;max-width:480px;width:100%;min-height:1.2rem;font-size:1rem;padding:0 .2rem}
+
+/* === RIGHT SIDEBAR === */
+.right-sidebar{width:300px;display:flex;flex-direction:column;gap:.8rem;min-height:0}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:.8rem;flex:1;display:flex;flex-direction:column;min-height:0}
+.panel-title{font-size:.85rem;font-weight:700;margin-bottom:.5rem;color:var(--text2)}
+
+/* === MOVES LIST === */
+.moves-list{flex:1;overflow-y:auto;font-family:'Space Grotesk',monospace;font-size:.8rem;display:flex;flex-wrap:wrap;align-content:flex-start;gap:2px}
+.moves-list::-webkit-scrollbar{width:4px}
+.moves-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.move-number{color:var(--text3);width:28px;text-align:right;padding:2px 4px}
+.move-white,.move-black{padding:2px 6px;border-radius:4px;cursor:default;min-width:50px}
+.move-white{color:var(--text);background:rgba(255,255,255,0.05)}
+.move-black{color:var(--text2);background:rgba(255,255,255,0.02)}
+.move-row{display:flex;align-items:center;gap:4px;width:100%}
+
+/* === CHAT === */
+.chat-panel{max-height:200px}
+.chat-messages{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:.4rem;padding:.4rem;font-size:.8rem}
+.chat-messages::-webkit-scrollbar{width:4px}
+.chat-messages::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.chat-msg{padding:.3rem .6rem;border-radius:6px;background:rgba(255,255,255,0.03)}
+.chat-msg .sender{font-weight:600;color:var(--primary2);margin-right:.3rem}
+.chat-input-group{display:flex;gap:.4rem;margin-top:.5rem}
+.chat-input-group input{flex:1;padding:.4rem .6rem;background:var(--bg2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.8rem;font-family:'Inter',sans-serif}
+.chat-input-group input:focus{outline:none;border-color:var(--primary)}
+
+/* === GAME CONTROLS === */
+.game-controls{display:flex;gap:.5rem;flex-wrap:wrap}
+.game-controls .btn{flex:1;justify-content:center;min-width:0}
+
+/* === MODAL === */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:100}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;text-align:center;max-width:400px;width:90%;animation:slideUp .3s ease}
+.modal-icon{font-size:3rem;margin-bottom:1rem}
+.modal h2{font-family:'Space Grotesk',sans-serif;margin-bottom:.5rem}
+.modal p{color:var(--text2);margin-bottom:1.5rem;font-size:.9rem}
+.modal-actions{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap}
+
+/* === PROMOTION === */
+.promotion-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:110}
+.promotion-modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;text-align:center}
+.promotion-modal h3{margin-bottom:1rem;font-family:'Space Grotesk',sans-serif}
+.promotion-pieces{display:flex;gap:.5rem;justify-content:center}
+.promotion-pieces button{font-size:2.5rem;padding:.5rem 1rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;transition:all .2s}
+.promotion-pieces button:hover{background:var(--primary);border-color:var(--primary);transform:scale(1.1)}
+
+/* === RESPONSIVE === */
+@media(max-width:900px){
+  .game-container{flex-direction:column;align-items:center;overflow-y:auto;padding:0 .5rem .5rem}
+  .right-sidebar{width:100%;max-width:480px;flex-direction:row;flex-wrap:wrap}
+  .panel{min-height:120px}
+  .chat-panel{max-height:150px}
+  .game-controls{width:100%}
+  .board-wrapper{max-width:min(480px,calc(100vw - 40px))}
+}
+@media(max-width:500px){
+  .game-page .navbar{padding:.5rem .8rem}
+  .right-sidebar{flex-direction:column}
+  .player-card{padding:.4rem .6rem}
+  .player-avatar{font-size:1.2rem}
+  .board-wrapper{max-width:calc(100vw - 20px)}
+}
