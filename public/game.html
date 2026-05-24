@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChessMate - Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/game.css">
+</head>
+<body class="game-page">
+  <div class="bg-grid"></div>
+  <nav class="navbar game-nav">
+    <a href="/" class="logo"><span class="logo-icon">♔</span><span class="logo-text">ChessMate</span></a>
+    <div class="game-status" id="gameStatus">Connecting...</div>
+  </nav>
+  <div class="game-container">
+    <div class="game-sidebar left-sidebar">
+      <div class="player-card opponent-card" id="opponentCard">
+        <div class="player-avatar" id="opponentAvatar">♚</div>
+        <div class="player-info">
+          <span class="player-name" id="opponentName">Waiting...</span>
+          <span class="player-color" id="opponentColor">—</span>
+        </div>
+        <div class="connection-dot disconnected" id="opponentDot"></div>
+      </div>
+      <div class="captured-pieces" id="opponentCaptured"></div>
+      <div class="board-wrapper">
+        <div class="board-labels-top" id="topLabels"></div>
+        <div class="board-labels-left" id="leftLabels"></div>
+        <div class="chess-board" id="chessBoard"></div>
+        <div class="board-labels-right" id="rightLabels"></div>
+        <div class="board-labels-bottom" id="bottomLabels"></div>
+      </div>
+      <div class="captured-pieces" id="playerCaptured"></div>
+      <div class="player-card self-card" id="selfCard">
+        <div class="player-avatar" id="selfAvatar">♔</div>
+        <div class="player-info">
+          <span class="player-name" id="selfName">You</span>
+          <span class="player-color" id="selfColor">—</span>
+        </div>
+        <div class="connection-dot connected" id="selfDot"></div>
+      </div>
+    </div>
+    <div class="game-sidebar right-sidebar">
+      <div class="panel moves-panel">
+        <h3 class="panel-title">📜 Moves</h3>
+        <div class="moves-list" id="movesList"></div>
+      </div>
+      <div class="panel chat-panel">
+        <h3 class="panel-title">💬 Chat</h3>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input-group">
+          <input type="text" id="chatInput" placeholder="Type a message..." maxlength="200">
+          <button id="sendChatBtn" class="btn btn-sm">Send</button>
+        </div>
+      </div>
+      <div class="game-controls">
+        <button id="resignBtn" class="btn btn-danger btn-sm">🏳️ Resign</button>
+        <button id="drawBtn" class="btn btn-warning btn-sm">🤝 Offer Draw</button>
+        <button id="copyGameLink" class="btn btn-sm">🔗 Copy Link</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-overlay hidden" id="modalOverlay">
+    <div class="modal" id="gameModal">
+      <div class="modal-icon" id="modalIcon"></div>
+      <h2 id="modalTitle"></h2>
+      <p id="modalMessage"></p>
+      <div class="modal-actions" id="modalActions"></div>
+    </div>
+  </div>
+  <div class="promotion-overlay hidden" id="promotionOverlay">
+    <div class="promotion-modal">
+      <h3>Choose Promotion</h3>
+      <div class="promotion-pieces" id="promotionPieces"></div>
+    </div>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/game.js"></script>
+</body>
+</html>

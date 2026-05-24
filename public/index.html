@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChessMate - Play Chess with Friends</title>
+  <meta name="description" content="Play chess online with friends. Create a game, share the link, and start playing instantly.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="floating-pieces">
+    <span class="piece piece-1">♔</span>
+    <span class="piece piece-2">♛</span>
+    <span class="piece piece-3">♞</span>
+    <span class="piece piece-4">♜</span>
+    <span class="piece piece-5">♝</span>
+    <span class="piece piece-6">♟</span>
+  </div>
+  <div class="landing-container">
+    <nav class="navbar">
+      <div class="logo"><span class="logo-icon">♔</span><span class="logo-text">ChessMate</span></div>
+    </nav>
+    <main class="hero">
+      <div class="hero-badge"><span class="pulse-dot"></span>Free • No Signup • Instant Play</div>
+      <h1 class="hero-title">Play Chess with<br><span class="gradient-text">Friends Online</span></h1>
+      <p class="hero-subtitle">Create a game room, share the link, and start playing instantly. Real-time multiplayer chess.</p>
+      <div class="hero-actions">
+        <button id="createGameBtn" class="btn btn-primary"><span class="btn-icon">⚔️</span>Create Game</button>
+      </div>
+      <div id="linkSection" class="link-section hidden">
+        <div class="link-card">
+          <p class="link-label">Share this link with your friend:</p>
+          <div class="link-copy-group">
+            <input type="text" id="gameLink" readonly class="link-input">
+            <button id="copyLinkBtn" class="btn btn-copy"><span id="copyIcon">📋</span><span id="copyText">Copy</span></button>
+          </div>
+          <a id="joinSelfLink" href="#" class="btn btn-secondary"><span class="btn-icon">♟️</span>Join Game as Player 1</a>
+          <p class="link-hint">You join as White, your friend joins as Black</p>
+        </div>
+      </div>
+    </main>
+    <section id="features" class="features-section">
+      <h2 class="section-title">Why <span class="gradient-text">ChessMate</span>?</h2>
+      <div class="features-grid">
+        <div class="feature-card"><div class="feature-icon">⚡</div><h3>Instant Play</h3><p>No signup needed. Start in seconds.</p></div>
+        <div class="feature-card"><div class="feature-icon">🔗</div><h3>Easy Sharing</h3><p>Share a link, they click and join.</p></div>
+        <div class="feature-card"><div class="feature-icon">📱</div><h3>Responsive</h3><p>Plays great on any device.</p></div>
+        <div class="feature-card"><div class="feature-icon">💬</div><h3>In-Game Chat</h3><p>Chat while you play.</p></div>
+        <div class="feature-card"><div class="feature-icon">🎯</div><h3>Move Validation</h3><p>Legal moves highlighted on board.</p></div>
+        <div class="feature-card"><div class="feature-icon">🏆</div><h3>Game Controls</h3><p>Resign, draw, rematch controls.</p></div>
+      </div>
+    </section>
+    <footer class="footer"><p>♔ ChessMate — Made with ♥</p></footer>
+  </div>
+  <script>
+    const createGameBtn=document.getElementById('createGameBtn'),linkSection=document.getElementById('linkSection'),gameLink=document.getElementById('gameLink'),copyLinkBtn=document.getElementById('copyLinkBtn'),joinSelfLink=document.getElementById('joinSelfLink'),copyIcon=document.getElementById('copyIcon'),copyText=document.getElementById('copyText');
+    createGameBtn.addEventListener('click',async()=>{createGameBtn.disabled=true;createGameBtn.innerHTML='<span class="spinner"></span> Creating...';try{const res=await fetch('/api/create-game',{method:'POST'});const data=await res.json();const url=`${window.location.origin}/game/${data.gameId}`;gameLink.value=url;joinSelfLink.href=url;linkSection.classList.remove('hidden');linkSection.scrollIntoView({behavior:'smooth',block:'center'});createGameBtn.innerHTML='<span class="btn-icon">✅</span> Game Created!';setTimeout(()=>{createGameBtn.innerHTML='<span class="btn-icon">⚔️</span> Create New Game';createGameBtn.disabled=false;},2000);}catch(err){createGameBtn.innerHTML='<span class="btn-icon">❌</span> Error!';setTimeout(()=>{createGameBtn.innerHTML='<span class="btn-icon">⚔️</span> Create Game';createGameBtn.disabled=false;},2000);}});
+    copyLinkBtn.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(gameLink.value);copyIcon.textContent='✅';copyText.textContent='Copied!';setTimeout(()=>{copyIcon.textContent='📋';copyText.textContent='Copy';},2000);}catch{gameLink.select();document.execCommand('copy');copyIcon.textContent='✅';copyText.textContent='Copied!';setTimeout(()=>{copyIcon.textContent='📋';copyText.textContent='Copy';},2000);}});
+  </script>
+</body>
+</html>
